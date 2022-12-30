@@ -2,6 +2,6 @@
 
 Cacti (**Ca**tegorical **C**reative **I**nventory) enables categorization of the creative inventory.
 
-This is a fork from [pau101/Cacti](https://github.com/pau101/Cacti)
+i will try to get this mod to 1.16.5
 
 *More coming soon™...*
