@@ -42,13 +42,13 @@ ext.groupId = "com.pau101"
 ext.artifactId = "cacti"
 ext.modVersion = "1.0.2"
 
-version = "${modVersion}-1.12.2"
+version = "${modVersion}-1.16.5"
 group = "${groupId}.${artifactId}"
 archivesBaseName = artifactId
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
 
 minecraft {
-	version = "1.12.2-14.23.5.2847"
+	version = "36.2.34"
 	runDir = "run"
 	mappings = "snapshot_20171003"
 	makeObfSourceJar = false
