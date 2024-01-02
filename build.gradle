@@ -19,24 +19,6 @@ buildscript {
 }
 
 apply plugin: "net.minecraftforge.gradle.forge"
-apply plugin: "maven-publish"
-apply plugin: "com.matthewprenger.cursegradle"
-
-class Secrets {
-	def data = null
-
-	def getProperty(String key) {
-		return data ? data[key] : ""
-	}
-}
-
-def secretFile = file "../secret.json"
-project.ext.secret = new Secrets()
-if (secretFile.exists()) {
-	secretFile.withReader {
-		project.ext.secret.data = new JsonSlurper().parse it
-	}
-}
 
 ext.groupId = "com.pau101"
 ext.artifactId = "cacti"
@@ -113,54 +95,3 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 
 tasks.build.dependsOn devJar, sourcesJar, javadocJar
-
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			groupId project.groupId
-			artifactId project.artifactId
-			version project.version
-			from components.java
-			artifact devJar {
-				classifier "dev"
-			}
-			artifact sourcesJar {
-				classifier "sources"
-			}
-			artifact javadocJar {
-				classifier "javadoc"
-			}
-		}
-	}
-	repositories {
-		maven {
-			credentials {
-				username secret.username
-				password secret.password
-			}
-			url secret.url
-		}
-	}
-}
-
-curseforge {
-	apiKey = secret.curseforgeAPIKey
-	project {
-		id = "248552"
-		releaseType = "release"
-		changelog = "Initial release"
-		def versionPart = "Cacti $project.modVersion"
-		mainArtifact(jar) {
-			displayName = versionPart
-		}
-		addArtifact(devJar) {
-			displayName = "$versionPart Development"
-		}
-		addArtifact(sourcesJar) {
-			displayName = "$versionPart Sources"
-		}
-		addArtifact(javadocJar) {
-			displayName = "$versionPart Javadoc"
-		}
-	}
-}
